@@ -1,0 +1,41 @@
+---
+title: "Exploration"
+author: "Pedro Gaxiola"
+date: "2023-02-03"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Packages used
+```{r}
+library(tidyverse)
+```
+
+## Reading in the data
+The original test data will be named test_data and the original train data will be train_data. \newline
+The data is in the csv format.
+```{r}
+test_data <- read.csv("house-prices-advanced-regression-techniques/test.csv")
+train_data <- read.csv("house-prices-advanced-regression-techniques/train.csv")
+```
+
+## Creating data frames for the original data
+The dataframes df_train and df_test are the dataframes of the original loaded data
+```{r}
+df_test <- data.frame(test_data)
+df_train <- data.frame(train_data)
+```
+
+## Initial description of the data
+The test csv file contains 1459 rows and 80 columns. \newline
+The train csv file contains 1460 rows an 81 columns. 
+```{r}
+dim(df_test)
+dim(df_train)
+```
+
+
+
