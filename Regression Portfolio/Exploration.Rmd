@@ -10,20 +10,24 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Packages used
+
 ```{r}
 library(tidyverse)
 ```
 
 ## Reading in the data
-The original test data will be named test_data and the original train data will be train_data. \newline
-The data is in the csv format.
+
+The original test data will be named test_data and the original train data will be train_data. \newline The data is in the csv format.
+
 ```{r}
 test_data <- read.csv("house-prices-advanced-regression-techniques/test.csv")
 train_data <- read.csv("house-prices-advanced-regression-techniques/train.csv")
 ```
 
 ## Creating data frames for the original data
+
 The dataframes df_train and df_test are the dataframes of the original loaded data
+
 ```{r}
 df_test <- data.frame(test_data)
 df_train <- data.frame(train_data)
@@ -31,11 +35,39 @@ df_train <- data.frame(train_data)
 
 ## Initial description of the data
 The test csv file contains 1459 rows and 80 columns. \newline
-The train csv file contains 1460 rows an 81 columns. 
+The train csv file contains 1460 rows an 81 columns. \newline
+
+
 ```{r}
 dim(df_test)
 dim(df_train)
 ```
+These are the names of the variables in df_train.
+```{r}
+names(df_train)
+```
+
+The training data containes a total of 6965 missing values. \newline
+
+```{r}
+sum(is.na(df_train))
+```
+
+The missing values for each variable are shown below. The percent of missing values for each column is also shown.
+
+
+```{r}
+tibble(variable = names(df_train),
+       missing_value = colSums(is.na(df_train)),
+       percent_missing =colSums(is.na(df_train))/nrow(df_train) *100
+       ) %>%
+  filter(missing_value > 0)
+```
+
+```{r}
+
+```
+
 
 
 
