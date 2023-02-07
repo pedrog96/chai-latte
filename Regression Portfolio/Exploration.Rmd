@@ -2,7 +2,9 @@
 title: "Exploration"
 author: "Pedro Gaxiola"
 date: "2023-02-03"
-output: pdf_document
+output:
+  pdf_document:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
@@ -13,7 +15,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(tidyverse)
+library(lemon)
+knit_print.data.frame <- lemon_print
 ```
+
 
 ## Reading in the data
 
@@ -38,16 +43,24 @@ The test csv file contains 1459 rows and 80 columns. \newline
 The train csv file contains 1460 rows an 81 columns. \newline
 
 
+
 ```{r}
 dim(df_test)
 dim(df_train)
 ```
-These are the names of the variables in df_train.
-```{r}
-names(df_train)
+
+These are the names and data types df_train.
+
+```{r, render=lemon_print}
+a1 <- tibble(variable = names(df_train), data_type = sapply(df_train, class)) %>% slice(1:27)
+a2 <- tibble(variable = names(df_train), data_type = sapply(df_train, class)) %>% slice(28:54)
+a3 <- tibble(variable = names(df_train), data_type = sapply(df_train, class)) %>% slice(55:81)
+cbind(a1, a2, a3)
+#my_data_types < cbind()
 ```
 
-The training data containes a total of 6965 missing values. \newline
+
+The training data contains a total of 6965 missing values. \newline
 
 ```{r}
 sum(is.na(df_train))
@@ -56,9 +69,8 @@ sum(is.na(df_train))
 The missing values for each variable are shown below. The percent of missing values for each column is also shown.
 
 
-```{r}
-tibble(variable = names(df_train),
-       missing_value = colSums(is.na(df_train)),
+```{r, render=lemon_print}
+tibble(missing_value = colSums(is.na(df_train)),
        percent_missing =colSums(is.na(df_train))/nrow(df_train) *100
        ) %>%
   filter(missing_value > 0)
