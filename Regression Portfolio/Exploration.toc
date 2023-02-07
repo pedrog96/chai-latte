@@ -1,0 +1,7 @@
+\contentsline {subsection}{Packages used}{1}{section*.2}%
+\contentsline {subsection}{Reading in the data}{2}{section*.3}%
+\contentsline {subsection}{Creating data frames for the original data}{2}{section*.4}%
+\contentsline {subsection}{Initial description of the data}{2}{section*.5}%
+\contentsline {subsection}{Data types}{2}{section*.6}%
+\contentsline {subsection}{Duplicate entries}{3}{section*.7}%
+\contentsline {subsection}{Missing Values}{3}{section*.8}%

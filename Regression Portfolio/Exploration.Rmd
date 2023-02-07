@@ -22,7 +22,8 @@ knit_print.data.frame <- lemon_print
 
 ## Reading in the data
 
-The original test data will be named test_data and the original train data will be train_data. \newline The data is in the csv format.
+The original test data will be named test_data and the original train data will be train_data.\newline 
+The data is in the csv format.
 
 ```{r}
 test_data <- read.csv("house-prices-advanced-regression-techniques/test.csv")
@@ -31,7 +32,7 @@ train_data <- read.csv("house-prices-advanced-regression-techniques/train.csv")
 
 ## Creating data frames for the original data
 
-The dataframes df_train and df_test are the dataframes of the original loaded data
+The data frames df_train and df_test are the data frames of the original loaded data
 
 ```{r}
 df_test <- data.frame(test_data)
@@ -49,36 +50,86 @@ dim(df_test)
 dim(df_train)
 ```
 
+## Data types
 These are the names and data types df_train.
 
-```{r, render=lemon_print}
+```{r, render=lemon_print, caption= "Variables for df_train"}
 a1 <- tibble(variable = names(df_train), data_type = sapply(df_train, class)) %>% slice(1:27)
 a2 <- tibble(variable = names(df_train), data_type = sapply(df_train, class)) %>% slice(28:54)
 a3 <- tibble(variable = names(df_train), data_type = sapply(df_train, class)) %>% slice(55:81)
 cbind(a1, a2, a3)
-#my_data_types < cbind()
+rm(a1)
+rm(a2)
+rm(a3)
+```
+
+## Duplicate entries
+
+It seems that the data does not contain any duplicate entries.
+```{r}
+sum(duplicated(df_train))
+sum(duplicated(df_test))
 ```
 
 
+## Missing Values
 The training data contains a total of 6965 missing values. \newline
+The testing data containes a total of 7000 missing values. 
 
 ```{r}
 sum(is.na(df_train))
+sum(is.na(df_test))
 ```
 
-The missing values for each variable are shown below. The percent of missing values for each column is also shown.
+The missing values for each variable are shown below. \newline
+The percent of missing values for each column is also shown. \newline
+If a variable is not listed, then it should not have any missing values. \newline
+The entries NA were added to make the tables align correctly and do not represent anything. 
 
 
-```{r, render=lemon_print}
-tibble(missing_value = colSums(is.na(df_train)),
+```{r, render= lemon_print, caption= "Missing Values for df_train"}
+a4 <- tibble(variable = names(df_train),
+       missing_value = colSums(is.na(df_train)),
        percent_missing =colSums(is.na(df_train))/nrow(df_train) *100
        ) %>%
   filter(missing_value > 0)
+cbind(slice(a4, 1:10), rbind(slice(a4, 11:19), c(NA, NA, NA)))
 ```
 
-```{r}
 
+```{r, render= lemon_print, caption= "Missing Values for df_test"}
+a5 <- tibble(variable = names(df_test),
+       missing_value = colSums(is.na(df_test)),
+       percent_missing =colSums(is.na(df_test))/nrow(df_test) *100
+       ) %>%
+  filter(missing_value > 0) 
+
+cbind(slice(a5, 1:17), rbind(slice(a5, 18:33), c(NA, NA, NA)))
 ```
+
+
+```{r, render= lemon_print, caption= "Combined Missing Values for df_test and df_train"}
+a6 <- rbind(df_test, select(df_train, -c("SalePrice")))
+
+a6 <- tibble(variable = names(a6),
+       missing_value = colSums(is.na(a6)),
+       percent_missing =colSums(is.na(a6))/nrow(a6) *100
+       ) %>%
+  filter(missing_value > 0)
+cbind(slice(a6, 1:17), slice(a6, 18:34))
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
